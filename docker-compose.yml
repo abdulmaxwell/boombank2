@@ -1,0 +1,21 @@
+version: '3.8'
+services:
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    env_file:
+      - backend/.env
+    restart: unless-stopped
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: boombank
+      POSTGRES_USER: boombank
+      POSTGRES_PASSWORD: boombankpass
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+volumes:
+  db_data:
